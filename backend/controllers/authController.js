@@ -46,7 +46,11 @@ export const login = async (req, res) => {
             return res.status(400).json({success:false, message:"invalid password"})
         }
         const token = generateToken(user)
-        return res.status(200).json({success:true, token, userID: user._id})
+        return res.status(200).json({success:true, 
+            token, 
+            userID: user._id,
+            message: "login successful"
+        })
 
     } catch (error) {
         console.error(error.message)

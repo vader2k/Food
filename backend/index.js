@@ -20,23 +20,23 @@ app.use(cors({
 
 //database connection
 mongoose.set('strictQuery', false)
-const connectDB = async() => {
+const connectedDB = async() => {
 	try {
-		mongoose.connect(process.env.MONGO_URL, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		})
+        await mongoose.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        })
 		console.log("mongoDB databse is connected")
-	} catch (err) {
-		console.log("database connection failed")
-	}
-};
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 //end point or routes
 app.use('/api/v1/auth', userRouter)
 
 
 app.listen(port, ()=> {
-    connectDB()
+	connectedDB()
     console.log(`Server is running on port ${port}`)
 })

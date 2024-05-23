@@ -3,6 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { userRouter } from './routes/usersRoute.js'
+import { recipesRouter } from './routes/recipesRoutes.js'
 
 dotenv.config()
 const port = process.env.PORT || 8000
@@ -34,6 +35,7 @@ const connectedDB = async() => {
 
 //end point or routes
 app.use('/api/v1/auth', userRouter)
+app.use('/api/v1/recipes', recipesRouter)
 
 
 app.listen(port, ()=> {

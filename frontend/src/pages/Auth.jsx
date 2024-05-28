@@ -1,7 +1,7 @@
-import { useState } from "react"
-import axios from 'axios'
-import {useCookies} from 'react-cookie'
-import { useNavigate } from 'react-router-dom'
+import { useState } from "react";
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
   return (
@@ -9,33 +9,34 @@ const Auth = () => {
       <Login />
       <Register />
     </section>
-  )
-}
+  );
+};
 
-export default Auth
+export default Auth;
 
 const Login = () => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const  [_, setCookies] = useCookies(["access_token"])
-  const navigate = useNavigate()
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [_, setCookies] = useCookies(["access_token"]);
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const res = await axios.post("http://localhost:3000/api/v1/auth/login", {
         username,
         password
-      })
-      console.log(res.data)
-      setCookies("access_token", res.data.token, {httpOnly: true})
-      window.localStorage.setItem("userId", res.data.userID)
-      navigate('/')
-      alert("login successfully")
+      });
+      console.log(res.data);
+      setCookies("access_token", res.data.token);
+      window.localStorage.setItem("userId", res.data.userID);
+      navigate('/');
+      alert("Login successful");
     } catch (error) {
-      console.log(error.response.data.message)
+      console.error("Login failed:", error.response?.data?.message || error.message);
+      alert("Login failed: " + (error.response?.data?.message || error.message));
     }
-  }
+  };
 
   return (
     <Form 
@@ -45,32 +46,29 @@ const Login = () => {
       setPassword={setPassword} 
       label="Login"
       onSubmit={onSubmit}
-      />
-  )
-}
-
-
+    />
+  );
+};
 
 const Register = () => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-       await axios.post("http://localhost:3000/api/v1/auth/register", {
+      await axios.post("http://localhost:3000/api/v1/auth/register", {
         username,
         email,
         password
-      })
-      alert("registrations successfully")
+      });
+      alert("Registration successful");
     } catch (error) {
-      console.log(error.message)
+      console.error("Registration failed:", error.response?.data?.message || error.message);
+      alert("Registration failed: " + (error.response?.data?.message || error.message));
     }
-    
-  }
-
+  };
 
   return (
     <Form 
@@ -82,12 +80,11 @@ const Register = () => {
       setPassword={setPassword} 
       label="Register" 
       onSubmit={onSubmit}
-      />
-  )
-}
+    />
+  );
+};
 
 const Form = ({ username, setUsername, email, setEmail, password, setPassword, onSubmit, label }) => {
-
   return (
     <div className="w-full">
       <form onSubmit={onSubmit} className="flex flex-col gap-10">
@@ -98,7 +95,7 @@ const Form = ({ username, setUsername, email, setEmail, password, setPassword, o
             type="text" 
             id="username" 
             value={username}
-            onChange={(e)=> setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             className="border border-black w-full max-w-[400px] p-2" 
           />
         </div>
@@ -122,7 +119,7 @@ const Form = ({ username, setUsername, email, setEmail, password, setPassword, o
             type="password" 
             id="password"
             value={password} 
-            onChange={(e)=> setPassword(e.target.value)}  
+            onChange={(e) => setPassword(e.target.value)}  
             className="border border-black w-full max-w-[400px] p-2" 
           />
         </div>
@@ -134,5 +131,5 @@ const Form = ({ username, setUsername, email, setEmail, password, setPassword, o
         </button>
       </form>
     </div>
-  )
-}
+  );
+};

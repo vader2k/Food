@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Auth from './pages/Auth'
 import CreateRecipe from './pages/CreateRecipe'
-import SavedRecipe from './pages/SavedRecipe'
+import Saved from './pages/Saved'
 import Navbar from './components/Navbar'
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/create-recipe" element={<CreateRecipe />} />
-          <Route path="/saved-recipe" element={<SavedRecipe />} />
+          <Route path="/saved-recipe" element={<Saved />} />
         </Routes>
       </Router>
     </div>

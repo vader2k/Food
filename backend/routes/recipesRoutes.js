@@ -12,7 +12,7 @@ const router = express.Router()
 router.get('/', getAllRecipes)
 router.post('/', createRecipe)
 router.put('/', saveRecipe)
-router.get('/savedRecipes', savedRecipes)
+router.get('/savedRecipes/:userID', savedRecipes)
 router.get('/savedRecipes/id/:userID', savedRecipesId)
 
 

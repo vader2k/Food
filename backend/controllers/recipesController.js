@@ -43,7 +43,7 @@ export const savedRecipesId = async (req,res) => {
 
 export const savedRecipes = async (req,res) => {
     try {
-        const user = await UserModel.findById(req.body.userID)
+        const user = await UserModel.findById(req.params.userID)
         const savedRecipes = await recipeModel.find({
             _id: {$in: user?.savedRecipes}
         })

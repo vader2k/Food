@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/recipes")
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/recipes`)
         setRecipes(response.data.data)
       } catch (error) {
         console.error(error)
@@ -19,8 +19,8 @@ const Home = () => {
 
     const fetchSavedRecipe = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/recipes/savedRecipes/id/${userID}`)
-        console.log(response.data.data)
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/recipes/savedRecipes/id/${userID}`)
+        setSavedRecipes(response.data.data)
       } catch (error) {
         console.error(error)
       }
@@ -36,7 +36,7 @@ const Home = () => {
         recipeID,
         userID
       })
-      console.log(response.data.data)
+      setSavedRecipes(response.data.data)
     } catch (error) {
       console.error(error)
     }
@@ -50,10 +50,17 @@ const Home = () => {
           <li key={recipe._id}>
             <div>
               <h2 className="text-center text-2xl font-medium capitalize">{recipe.name}</h2>
-              <button onClick={() => saveRecipe(recipe._id)}>Save</button>
+              {savedRecipes?.includes(recipe._id) 
+                ? <span className="font-medium text-[0.9rem]">Already saved</span> 
+                : <button 
+                    onClick={()=> saveRecipe(recipe._id)}
+                    className="border border-black text-[0.9rem] font-medium uppercase p-1 bg-black text-white"
+                  >
+                    save
+                  </button>}
             </div>
             <div>
-              <p>{recipe.instructions}</p>
+              <p className="max-w-[500px]">{recipe.instructions}</p>
             </div>
             <img className="w-[300px] object-contain" src={recipe.image} alt={recipe.name} />
             <p>{recipe.cookingTime} (minutes)</p>

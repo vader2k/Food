@@ -29,11 +29,11 @@ const Login = () => {
       })
       console.log(res.data)
       setCookies("access_token", res.data.token, {httpOnly: true})
-      window.localStorage.setItem("userId", res.data.userId)
+      window.localStorage.setItem("userId", res.data.userID)
       navigate('/')
       alert("login successfully")
     } catch (error) {
-      console.log(error.message)
+      console.log(error.response.data.message)
     }
   }
 

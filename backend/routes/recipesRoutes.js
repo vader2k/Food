@@ -13,7 +13,7 @@ router.get('/', getAllRecipes)
 router.post('/', createRecipe)
 router.put('/', saveRecipe)
 router.get('/savedRecipes', savedRecipes)
-router.get('/savedRecipes/id', savedRecipesId)
+router.get('/savedRecipes/id/:userID', savedRecipesId)
 
 
 export {router as recipesRouter}

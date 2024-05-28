@@ -34,7 +34,7 @@ export const saveRecipe = async (req, res) => {
 
 export const savedRecipesId = async (req,res) => {
     try {
-        const user = await UserModel.findById(req.body.userID)
+        const user = await UserModel.findById(req.params.userID)
         return res.status(200).json({success:true, data:user?.savedRecipes})
     } catch (error) {
         return res.json(error)

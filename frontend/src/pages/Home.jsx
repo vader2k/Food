@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import axios from 'axios'
 import { useGetUserId } from "../hooks/useGetUserId"
+import { useCookies } from 'react-cookie';
 
 const Home = () => {
   const userID = useGetUserId()
   const [recipes, setRecipes] = useState([])
   const [savedRecipes, setSavedRecipes] = useState([])
+  const [cookies, _] = useCookies(["access_token"])
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -26,21 +28,23 @@ const Home = () => {
       }
     }
     
-    fetchRecipe() 
-    fetchSavedRecipe()
-  }, [userID])
+    fetchRecipe()
+    if(cookies.access_token){
+      fetchSavedRecipe()
+    } 
+  }, [userID, cookies])
 
   const saveRecipe = async (recipeID) => {
     try {
       const response = await axios.put("http://localhost:3000/api/v1/recipes", {
         recipeID,
         userID,
-      }, {headers: { authorization: "Bearer " + "ejjejwjjdjjj"}})
+      }, {headers: { authorization: "Bearer " + cookies.access_token}})
       setSavedRecipes(response.data.data)
     } catch (error) {
       console.error(error)
     }
-  }
+  } 
 
   return (
     <section className="w-full flex flex-col items-center justify-center py-10">

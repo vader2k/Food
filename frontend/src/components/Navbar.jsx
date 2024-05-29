@@ -5,7 +5,6 @@ const Navbar = () => {
   const [cookies,removeCookie] = useCookies(["access_token"])
   const navigate = useNavigate()
 
-  console.log(cookies)
   
   const logout =() => {
     removeCookie("access_token", "")
@@ -18,10 +17,12 @@ const Navbar = () => {
         {!cookies?.access_token ? 
           (<Link to='/auth'>Login / register</Link>
           ) : (
-            <button onClick={logout}>Logout</button>
+            <div className="flex items-center gap-10">
+              <Link to='/saved-recipe'>saved Recipe</Link>
+              <Link to='/create-recipe'>Create recipe</Link>
+              <button onClick={logout}>Logout</button>
+            </div>
           )}
-        <Link to='/create-recipe'>Create recipe</Link>
-        <Link to='/saved-recipe'>saved Recipe</Link>
     </nav>
   )
 }

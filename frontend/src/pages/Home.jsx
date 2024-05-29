@@ -34,8 +34,8 @@ const Home = () => {
     try {
       const response = await axios.put("http://localhost:3000/api/v1/recipes", {
         recipeID,
-        userID
-      })
+        userID,
+      }, {headers: { authorization: "Bearer " + "ejjejwjjdjjj"}})
       setSavedRecipes(response.data.data)
     } catch (error) {
       console.error(error)
